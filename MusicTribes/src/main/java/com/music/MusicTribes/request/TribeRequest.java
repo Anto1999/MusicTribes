@@ -1,48 +1,15 @@
-package com.music.MusicTribes.entity;
+package com.music.MusicTribes.request;
 
-import com.music.MusicTribes.permission.Role;
+import com.music.MusicTribes.entity.User;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-@Entity
-public class Tribe {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private Long id;
+public class TribeRequest {
     private String name;
     private String genre;
     private String description;
-
-
-
-
-
-    @ManyToOne
-    @JoinColumn(name = "chieftain")
     private User chieftain;
-
-    @ManyToMany
-    @JoinTable(     name="users_in_tribes",
-            joinColumns = @JoinColumn(name="tribe_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> members;
-
-    public Tribe() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -67,8 +34,6 @@ public class Tribe {
     public void setDescription(String description) {
         this.description = description;
     }
-
-
 
     public User getChieftain() {
         return chieftain;

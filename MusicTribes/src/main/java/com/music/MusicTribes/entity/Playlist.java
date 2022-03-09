@@ -16,12 +16,25 @@ public class Playlist {
             inverseJoinColumns = @JoinColumn(name = "song_id"))
     private Set<Song> songs;
 
+
+    @OneToMany
+    @JoinColumn(name="playlist_id")
+    private Set<Tribe> playlists ;
+
     public Playlist() {
 
     }
 
     public Long getId() {
         return id;
+    }
+
+    public Set<Tribe> getPlaylists() {
+        return playlists;
+    }
+
+    public void setPlaylists(Set<Tribe> playlists) {
+        this.playlists = playlists;
     }
 
     public void setId(Long id) {
