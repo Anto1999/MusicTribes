@@ -32,9 +32,14 @@ public class Tribe {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> members;
 
+    @OneToMany
+    @JoinColumn(name = "playlistId")
+    private List<Playlist> playlists;
+
     public Tribe() {
 
     }
+
 
     public Long getId() {
         return id;
@@ -68,7 +73,13 @@ public class Tribe {
         this.description = description;
     }
 
+    public List<Playlist> getPlaylists() {
+        return playlists;
+    }
 
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
+    }
 
     public User getChieftain() {
         return chieftain;
