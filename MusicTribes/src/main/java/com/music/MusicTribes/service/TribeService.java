@@ -35,6 +35,7 @@ public class TribeService {
         tribe.setName(tribeRequest.getName());
         tribe.setDescription(tribeRequest.getDescription());
         tribe.setGenre(tribeRequest.getGenre());
+        tribe.getMembers().add(user);
         return tribeRepository.save(tribe);
     }
 

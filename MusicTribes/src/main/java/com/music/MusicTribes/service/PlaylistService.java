@@ -50,7 +50,9 @@ public class PlaylistService {
             Playlist playlist = new Playlist();
             playlist.setUserId(user);
             playlist.setName(playlistRequest.getName());
-            playlist.setTribeId(tribe);
+            tribe.getPlaylists().add(playlist);
+            playlistRepository.save(playlist);
+            tribeRepository.save(tribe);
             return playlistRepository.save(playlist);
 
         }

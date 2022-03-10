@@ -32,8 +32,10 @@ public class Tribe {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> members;
 
-    @OneToMany
-    @JoinColumn(name = "playlistId")
+    @ManyToMany
+    @JoinTable(     name="playlists_in_tribe",
+            joinColumns = @JoinColumn(name="tribe_id"),
+            inverseJoinColumns = @JoinColumn(name = "playlist_id"))
     private List<Playlist> playlists;
 
     public Tribe() {
