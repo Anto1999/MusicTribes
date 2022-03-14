@@ -34,4 +34,12 @@ public class SongController {
         songService.likeSong(songId);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/{songId}/likes")
+        public int likes(@PathVariable Long songId){
+            return songService.numberOfLikes(songId);
+
+        }
+
+
 }

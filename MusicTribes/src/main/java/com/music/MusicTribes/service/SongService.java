@@ -76,5 +76,11 @@ public class SongService {
 
     }
 
+    public int numberOfLikes(Long songId){
+        Optional<Song> getSong = songRepository.findById(songId);
+        Song song = getSong.get();
+        return song.getLikes().size();
+    }
+
 
 }
