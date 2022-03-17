@@ -47,6 +47,7 @@ public class TribeService {
         Optional<Tribe> getTribe = tribeRepository.findById(tribeId);
         Tribe tribe = getTribe.get();
         tribe.getMembers().add(user);
+
         return tribeRepository.save(tribe);
 
     }

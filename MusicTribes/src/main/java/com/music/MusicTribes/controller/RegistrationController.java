@@ -25,6 +25,7 @@ public class RegistrationController {
     public String showRegistrationForm(){
         return "registration";
     }
+
     @PostMapping
     public String registerUserAccount(@ModelAttribute("user") SignupRequest signupRequest){
         var user = userService.saveUser(signupRequest);

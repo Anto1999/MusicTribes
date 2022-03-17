@@ -1,13 +1,17 @@
 package com.music.MusicTribes.jwt;
 
+import com.music.MusicTribes.entity.User;
 import com.music.MusicTribes.service.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Date;
 
 @Component
@@ -31,6 +35,7 @@ public class JwtUtils {
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
+
 
 
     public String getUserNameFromJwtToken(String token) {

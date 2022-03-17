@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div align="center">
+    <h1>List of tribes</h1>
+
+    <table class="table table-dark table-striped table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>Tribe</th>
+            <th>chieftain</th>
+            <th>genre</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tribe : ${tribe}">
+
+            <td th:text="${tribe.name}"></td>
+            <td th:text="${tribe.getChieftain().getUsername()}"></td>
+            <td th:text="${tribe.genre}"></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
