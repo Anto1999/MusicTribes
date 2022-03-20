@@ -1,5 +1,6 @@
 package com.music.MusicTribes.controller;
 
+
 import com.music.MusicTribes.entity.User;
 import com.music.MusicTribes.jwt.JwtUtils;
 import com.music.MusicTribes.repository.UserRepository;
@@ -34,6 +35,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
+
 @RequestMapping("/login")
 public class MainController {
     private final UserService userService;
@@ -41,6 +43,8 @@ public class MainController {
     JwtUtils jwtUtils;
     @Autowired
     AuthenticationManager authenticationManager;
+
+
 
 
     @ModelAttribute("user")
@@ -72,6 +76,9 @@ public class MainController {
 
         Cookie c = new Cookie("Authorization", "Bearer"+jwt);
         response.addCookie(c);
+        c.setHttpOnly(true);
+
+        response.addHeader("Authorization", "Bearer"+jwt);
 
         System.out.println(c.getName());
 
@@ -84,5 +91,7 @@ public class MainController {
 
         }
     }
+
+
 
 }

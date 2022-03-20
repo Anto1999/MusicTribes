@@ -16,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -62,7 +63,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/musictribes/user/**").permitAll()
                 .antMatchers("/api/tribes/**").permitAll()
                 .antMatchers("/users/**").permitAll()
-                .antMatchers("/registration/**").permitAll();
+                .antMatchers("/registration/**").permitAll()
+                .and()
+                .logout()
+                .clearAuthentication(true)
+                .deleteCookies("Authorization","JSESSIONID").invalidateHttpSession(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout")
+                .permitAll();
+
+
+
 
 
 

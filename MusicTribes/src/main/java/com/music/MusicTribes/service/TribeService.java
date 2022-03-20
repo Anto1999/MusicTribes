@@ -1,5 +1,6 @@
 package com.music.MusicTribes.service;
 
+import com.music.MusicTribes.entity.Playlist;
 import com.music.MusicTribes.entity.Tribe;
 import com.music.MusicTribes.entity.User;
 import com.music.MusicTribes.repository.TribeRepository;
@@ -40,6 +41,7 @@ public class TribeService {
     }
 
     public Tribe joinToTribe(Long tribeId){
+        System.out.println("dosao do ovdje");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         Optional<User> getUser = userRepository.findByUsername(userDetails.getUsername());
@@ -53,5 +55,11 @@ public class TribeService {
     }
     public List<Tribe> getTribes(){
         return tribeRepository.findAll();
+    }
+
+    public List<Playlist> getPlaylist(Long tribeId){
+        Optional<Tribe> getTribe = tribeRepository.findById(tribeId);
+        Tribe tribe = getTribe.get();
+        return tribe.getPlaylists();
     }
 }

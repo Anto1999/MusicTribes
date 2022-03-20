@@ -6,6 +6,7 @@ import com.music.MusicTribes.repository.UserRepository;
 import com.music.MusicTribes.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,6 +42,7 @@ public class UserController {
         return userService.getUsers();
 
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public String usersView(Model model){
         model.addAttribute("listOfUsers",userService.getUsers());
@@ -49,11 +51,8 @@ public class UserController {
 
     @PreAuthorize("hasRole('USER')  or hasRole('ADMIN')")
     @GetMapping("/me")
-    public String userView(Model model){
-
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        model.addAttribute("user",userService.getUserFromUsername(userDetails));
+    public String userView(Authentication authentication, Model model){
+        model.addAttribute("user",authentication);
         return "userprofile";
     }
 

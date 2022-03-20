@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.util.WebUtils;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
@@ -31,8 +33,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+        Cookie name = WebUtils.getCookie(request, "Authorization");
+
         try {
-            String jwt = parseJwt(request);
+            String jwt = parseJwt(name.getValue());
+            System.out.println(jwt);
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
@@ -50,9 +55,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    private String parseJwt(String jwt) {
+        return jwt.substring(6,jwt.length());
+    }
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
-
+        System.out.println(headerAuth);
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer")) {
             return headerAuth.substring(6, headerAuth.length());
         }

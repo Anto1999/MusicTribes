@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
@@ -7,6 +7,33 @@
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="all">Tribe</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+                <li class="nav-item">
+                    <a class="nav-link" sec:authentication="principal.username"</a>
+                </li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-item" th:href="@{/logout}"> Logout </a></li>
+            </ul>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
 <div align="center">
     <h1>List of tribes</h1>
 
@@ -16,6 +43,7 @@
             <th>Tribe</th>
             <th>chieftain</th>
             <th>genre</th>
+            <th>Join to tribe</th>
         </tr>
         </thead>
         <tbody>
@@ -24,7 +52,12 @@
             <td th:text="${tribe.name}"></td>
             <td th:text="${tribe.getChieftain().getUsername()}"></td>
             <td th:text="${tribe.genre}"></td>
-        </tr>
+            <td>
+                <form action="#" th:action="@{/api/tribe/join}" method="POST">
+                    <input type="hidden" th:value="${tribe.id}" name="tribe_id"/>
+                    <button type="submit">Join</button>
+                </form>
+            </td>
 
         </tbody>
     </table>
